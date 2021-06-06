@@ -1,0 +1,11 @@
+{
+  "targets": {
+    "information-system-590b0": {
+      "hosting": {
+        "InformationSystem": [
+          "information-system-590b0"
+        ]
+      }
+    }
+  }
+}
