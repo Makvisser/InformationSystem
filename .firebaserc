@@ -1,9 +1,9 @@
 {
   "targets": {
-    "angular-users-database": {
+    "information-system-590b0": {
       "hosting": {
         "InformationSystem": [
-          "angular-users-database"
+          "information-system-590b0"
         ]
       }
     }
