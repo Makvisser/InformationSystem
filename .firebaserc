@@ -1,0 +1,11 @@
+{
+  "targets": {
+    "angular-users-database": {
+      "hosting": {
+        "InformationSystem": [
+          "angular-users-database"
+        ]
+      }
+    }
+  }
+}
