@@ -22,7 +22,7 @@ export class AuthService {
   getUsers(): Observable<(UserMetadata & StudentInfo)[]> {
     return this.firestore
       .collection(this.collection)
-      .valueChanges()
+      .snapshotChanges()
       .pipe(map((data) => data.map(snapshotDataConverter()) as (UserMetadata & StudentInfo)[]));
   }
 
