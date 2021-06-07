@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
-import { Routes, RouterModule } from '@angular/router';
+import { Routes, RouterModule, Router } from '@angular/router';
 import { SignInComponent } from './components/sign-in/sign-in.component';
-import { AuthComponent } from './auth.component';
+import { AuthService } from '../../shared/services/auth.service';
 
 const routes: Routes = [
   {
@@ -19,4 +19,8 @@ const routes: Routes = [
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule],
 })
-export class AuthRoutingModule {}
+export class AuthRoutingModule {
+  constructor(private authService: AuthService, private router: Router) {
+    this.authService.currentUser.getValue() && this.router.navigateByUrl('main').then();
+  }
+}
