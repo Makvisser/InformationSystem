@@ -9,7 +9,6 @@ import { MatButtonModule } from '@angular/material/button';
 import { SidebarComponent } from './components/sidebar/sidebar.component';
 import { HeaderComponent } from './components/header/header.component';
 import { StartPageComponent } from './components/start-page/start-page.component';
-import { ExpansionPanelComponent } from './components/expansion-panel/expansion-panel.component';
 import { MatTreeModule } from '@angular/material/tree';
 import { MatIconModule } from '@angular/material/icon';
 
@@ -19,7 +18,6 @@ import { MatIconModule } from '@angular/material/icon';
     SidebarComponent,
     HeaderComponent,
     StartPageComponent,
-    ExpansionPanelComponent,
   ],
   imports: [
     CommonModule,
