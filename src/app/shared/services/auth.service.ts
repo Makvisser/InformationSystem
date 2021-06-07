@@ -5,6 +5,7 @@ import { BehaviorSubject, Observable, of, throwError } from 'rxjs';
 import { map, switchMap, tap } from 'rxjs/operators';
 import { Router } from '@angular/router';
 import { StudentInfo } from '../interfaces/student-info';
+import { snapshotDataConverter } from '../helpers/snapshot-data-converter';
 
 @Injectable({
   providedIn: 'root',
@@ -21,16 +22,8 @@ export class AuthService {
   getUsers(): Observable<(UserMetadata & StudentInfo)[]> {
     return this.firestore
       .collection(this.collection)
-      .snapshotChanges()
-      .pipe(
-        map(
-          (data) =>
-            data.map(({ payload }) => ({
-              id: payload.doc.id,
-              ...(payload.doc.data() as any),
-            })) as (UserMetadata & StudentInfo)[],
-        ),
-      );
+      .valueChanges()
+      .pipe(map((data) => data.map(snapshotDataConverter()) as (UserMetadata & StudentInfo)[]));
   }
 
   getUser(user: UserMetadata): Observable<UserMetadata & StudentInfo> {

@@ -8,9 +8,19 @@ import { MatListModule } from '@angular/material/list';
 import { MatButtonModule } from '@angular/material/button';
 import { SidebarComponent } from './components/sidebar/sidebar.component';
 import { HeaderComponent } from './components/header/header.component';
+import { StartPageComponent } from './components/start-page/start-page.component';
+import { ExpansionPanelComponent } from './components/expansion-panel/expansion-panel.component';
+import { MatTreeModule } from '@angular/material/tree';
+import { MatIconModule } from '@angular/material/icon';
 
 @NgModule({
-  declarations: [MainComponent, SidebarComponent, HeaderComponent],
+  declarations: [
+    MainComponent,
+    SidebarComponent,
+    HeaderComponent,
+    StartPageComponent,
+    ExpansionPanelComponent,
+  ],
   imports: [
     CommonModule,
     RouterModule,
@@ -18,6 +28,8 @@ import { HeaderComponent } from './components/header/header.component';
     MatSidenavModule,
     MatListModule,
     MatButtonModule,
+    MatTreeModule,
+    MatIconModule,
   ],
 })
 export class MainModule {

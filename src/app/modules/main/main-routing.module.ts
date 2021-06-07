@@ -1,11 +1,13 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { MainComponent } from './main.component';
+import { StartPageComponent } from './components/start-page/start-page.component';
 
 const routes: Routes = [
   {
     path: '',
     component: MainComponent,
+    children: [{ path: '', component: StartPageComponent }],
   },
 ];
 
