@@ -1,0 +1,11 @@
+:host{
+  flex: 1;
+}
+
+.disable{
+  opacity: .5;
+}
+
+.active{
+  box-shadow: inset 0 0 10px 10px #7373e7;
+}
