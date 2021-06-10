@@ -19,7 +19,7 @@ export const dbConverter = (data: object, prevId = null): SnapshotData[] => {
     return {
       id: customKey,
       ...val,
-      children: children ? dbConverter(children, customKey) : [],
+      ...(children ? { children: dbConverter(children, customKey) } : {}),
     };
   });
 };

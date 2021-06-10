@@ -1,3 +1,9 @@
-<div *ngFor="let week of calendar$ | async" class="d-flex">
-  <app-schedule-body-card *ngFor="let day of week" [day]="day"></app-schedule-body-card>
+<div #element>
+  <div *ngFor="let week of calendar$ | async" class="d-flex">
+    <app-schedule-body-card
+      *ngFor="let day of week"
+      [day]="day"
+      (click)="changeDate(day.date)"
+    ></app-schedule-body-card>
+  </div>
 </div>

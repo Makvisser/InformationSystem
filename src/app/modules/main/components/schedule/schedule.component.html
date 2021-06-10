@@ -1,2 +1,3 @@
 <app-schedule-header></app-schedule-header>
-<app-schedule-body></app-schedule-body>
+<app-schedule-body (heightDataEmitter)="setNewHeight($event)"></app-schedule-body>
+<app-task-display [height]="scheduleBodyHeight"></app-task-display>

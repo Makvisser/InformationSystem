@@ -18,6 +18,10 @@ import { ScheduleBodyComponent } from './components/schedule-body/schedule-body.
 import { ScheduleBodyCardComponent } from './components/schedule-body-card/schedule-body-card.component';
 import { ScheduleComponent } from './components/schedule/schedule.component';
 import { MatCardModule } from '@angular/material/card';
+import { TaskDisplayComponent } from './components/task-display/task-display.component';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -30,6 +34,7 @@ import { MatCardModule } from '@angular/material/card';
     ScheduleBodyComponent,
     ScheduleBodyCardComponent,
     ScheduleComponent,
+    TaskDisplayComponent,
   ],
   imports: [
     FontAwesomeTestingModule,
@@ -42,6 +47,9 @@ import { MatCardModule } from '@angular/material/card';
     MatTreeModule,
     MatIconModule,
     MatCardModule,
+    MatFormFieldModule,
+    MatInputModule,
+    FormsModule,
   ],
 })
 export class MainModule {

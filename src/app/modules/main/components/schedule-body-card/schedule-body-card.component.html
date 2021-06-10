@@ -1,6 +1,8 @@
-<mat-card class="m-3" [ngClass]="{ disable: day.disable, active: day.active }">
-  <mat-card-header>{{ day.date | moment: 'DD' }}</mat-card-header>
-  <mat-card-content
-    ><h2>{{ day.date | moment: 'MMMM' }}</h2></mat-card-content
-  >
-</mat-card>
+<div class="hover">
+  <mat-card class="m-2" [ngClass]="{ disable: day.disable, active: day.active, selected:day.selected }">
+    <mat-card-header>{{ day.date | moment: 'DD' }}</mat-card-header>
+    <mat-card-content
+    ><small>{{ day.date | moment: 'dddd' }}</small></mat-card-content
+    >
+  </mat-card>
+</div>

@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../../../../shared/services/auth.service';
 import { StudentInfo } from '../../../../shared/interfaces/student-info';
+import { TeacherInfo } from '../../../../shared/interfaces/teacher-info';
 
 @Component({
   selector: 'app-header',
@@ -16,7 +17,7 @@ export class HeaderComponent implements OnInit {
     this.authService.signOut();
   }
 
-  get currentUser(): StudentInfo {
+  get currentUser(): StudentInfo | TeacherInfo {
     return this.authService.currentUser.getValue();
   }
 }

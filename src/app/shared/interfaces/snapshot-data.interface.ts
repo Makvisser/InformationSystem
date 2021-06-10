@@ -1,4 +1,4 @@
 export interface SnapshotData {
-  id: string;
+  id?: string;
   [key: string]: any;
 }
