@@ -1,5 +1,6 @@
 import {
-  AfterViewChecked, AfterViewInit,
+  AfterViewChecked,
+  AfterViewInit,
   ChangeDetectorRef,
   Component,
   ElementRef,
@@ -9,7 +10,7 @@ import {
   ViewChild,
 } from '@angular/core';
 import { DateService } from '../../../../shared/services/date.service';
-import { map } from 'rxjs/operators';
+import { distinctUntilChanged, map } from 'rxjs/operators';
 import * as moment from 'moment';
 import { Week } from '../../../../shared/interfaces/week';
 import { Observable } from 'rxjs';
@@ -20,20 +21,12 @@ import { generateCalendar } from '../../../../shared/helpers/date-generator';
   templateUrl: './schedule-body.component.html',
   styleUrls: ['./schedule-body.component.scss'],
 })
-export class ScheduleBodyComponent implements OnInit, AfterViewInit {
-  calendar$: Observable<Week[]> = this.dateService.date.pipe(map(generateCalendar));
-  @ViewChild('element', { read: ElementRef }) divElement: ElementRef;
-
-  @Output() heightDataEmitter: EventEmitter<number> = new EventEmitter<number>();
+export class ScheduleBodyComponent implements OnInit {
+  calendar$: Observable<Week[]> = this.dateService.date.pipe(
+    distinctUntilChanged((prev, curr) => prev.isSame(curr, 'month')),
+    map(generateCalendar),
+  );
   constructor(private dateService: DateService) {}
 
-  ngAfterViewInit() {
-    this.heightDataEmitter.emit(this.divElement.nativeElement.clientHeight);
-  }
-
   ngOnInit(): void {}
-
-  changeDate(value: moment.Moment): void {
-    this.dateService.changeDay(value);
-  }
 }

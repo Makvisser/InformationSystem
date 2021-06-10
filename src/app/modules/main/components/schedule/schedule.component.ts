@@ -1,28 +1,24 @@
 import {
-  AfterViewChecked, AfterViewInit,
+  AfterViewChecked,
+  AfterViewInit,
   ChangeDetectorRef,
   Component,
-  OnChanges,
+  OnDestroy,
   OnInit,
-  SimpleChanges,
 } from '@angular/core';
+import { TaskService } from '../../../../shared/services/task.service';
 
 @Component({
   selector: 'app-schedule',
   templateUrl: './schedule.component.html',
   styleUrls: ['./schedule.component.scss'],
 })
-export class ScheduleComponent implements OnInit, AfterViewInit {
-  scheduleBodyHeight: number;
-  constructor(private cdr: ChangeDetectorRef) {}
-
-  ngAfterViewInit() {
-    this.cdr.detectChanges();
-  }
+export class ScheduleComponent implements OnInit, OnDestroy {
+  constructor(private taskService: TaskService) {}
 
   ngOnInit(): void {}
 
-  setNewHeight(value) {
-    this.scheduleBodyHeight = value;
+  ngOnDestroy() {
+    this.taskService.setTasks(null);
   }
 }

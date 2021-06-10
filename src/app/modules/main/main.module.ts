@@ -22,6 +22,9 @@ import { TaskDisplayComponent } from './components/task-display/task-display.com
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { FormsModule } from '@angular/forms';
+import { MatToolbarModule } from '@angular/material/toolbar';
+import { MatBadgeModule } from '@angular/material/badge';
+import { ProfileComponent } from './components/profile/profile.component';
 
 @NgModule({
   declarations: [
@@ -35,6 +38,7 @@ import { FormsModule } from '@angular/forms';
     ScheduleBodyCardComponent,
     ScheduleComponent,
     TaskDisplayComponent,
+    ProfileComponent,
   ],
   imports: [
     FontAwesomeTestingModule,
@@ -49,7 +53,9 @@ import { FormsModule } from '@angular/forms';
     MatCardModule,
     MatFormFieldModule,
     MatInputModule,
+    MatToolbarModule,
     FormsModule,
+    MatBadgeModule,
   ],
 })
 export class MainModule {

@@ -1,0 +1,8 @@
+<pre class="h1" *ngIf="user.role === 'student'; else teacher">
+  {{user | json}}
+</pre>
+<ng-template #teacher>
+  <pre class="h1">
+    {{user | json}}
+  </pre>
+</ng-template>

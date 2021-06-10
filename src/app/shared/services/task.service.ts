@@ -5,13 +5,15 @@ import { Task } from '../interfaces/task';
 import { AuthService } from './auth.service';
 import { map, tap } from 'rxjs/operators';
 import { dbConverter } from '../helpers/data-converters';
-import { Observable } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
 })
 export class TaskService {
   constructor(private fireDB: AngularFireDatabase, private authService: AuthService) {}
+
+  tasks$: BehaviorSubject<Task[]> = new BehaviorSubject<Task[]>([]);
 
   createNewTask(value: string, date: moment.Moment) {
     return this.fireDB.database
@@ -24,5 +26,9 @@ export class TaskService {
       .object(`tasks/${date.format('YYYY/MM/DD')}`)
       .valueChanges()
       .pipe(map((data: any) => dbConverter(data || {}) as Task[]));
+  }
+
+  setTasks(tasks: Task[]) {
+    this.tasks$.next(tasks);
   }
 }

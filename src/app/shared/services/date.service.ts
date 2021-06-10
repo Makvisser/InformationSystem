@@ -10,10 +10,10 @@ export class DateService {
   constructor() {}
 
   changeDate(count: number): void {
-    this.date.next(this.date.value.add(count, 'month'));
+    this.date.next(this.date.value.clone().add(count, 'month'));
   }
   changeDay(value: moment.Moment): void {
-    const newDate = this.date.value.set({ date: value.date(), month: value.month() });
+    const newDate = this.date.value.clone().set({ date: value.date(), month: value.month() });
     this.date.next(newDate);
   }
 }
