@@ -1,5 +1,6 @@
-export interface StudentInfo {
-  id?: string;
+import { UserMetadata } from './userMetadata';
+
+export interface StudentInfo extends UserMetadata {
   name: string;
   surname: string;
   middleName: string;

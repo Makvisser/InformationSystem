@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../../../../shared/services/auth.service';
 import { StudentInfo } from '../../../../shared/interfaces/student-info';
+import { TeacherInfo } from '../../../../shared/interfaces/teacher-info';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-header',
@@ -8,7 +10,7 @@ import { StudentInfo } from '../../../../shared/interfaces/student-info';
   styleUrls: ['./header.component.scss'],
 })
 export class HeaderComponent implements OnInit {
-  constructor(private authService: AuthService) {}
+  constructor(private authService: AuthService, private router: Router) {}
 
   ngOnInit(): void {}
 
@@ -16,7 +18,11 @@ export class HeaderComponent implements OnInit {
     this.authService.signOut();
   }
 
-  get currentUser(): StudentInfo {
+  goToMain(): void {
+    this.router.navigate(['']).then();
+  }
+
+  get currentUser(): StudentInfo | TeacherInfo {
     return this.authService.currentUser.getValue();
   }
 }

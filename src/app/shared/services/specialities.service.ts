@@ -1,27 +1,34 @@
 import { Injectable } from '@angular/core';
-import { AngularFirestore } from '@angular/fire/firestore';
-import { concatMap, map, mergeMap, switchMap } from 'rxjs/operators';
-import { forkJoin, from, Observable, of, zip } from 'rxjs';
-import { snapshotDataConverter } from '../helpers/snapshot-data-converter';
-import firebase from 'firebase';
-import DocumentReference = firebase.firestore.DocumentReference;
+import { map, tap } from 'rxjs/operators';
+import { Observable } from 'rxjs';
+import { dbConverter } from '../helpers/data-converters';
+import { SnapshotData } from '../interfaces/snapshot-data.interface';
+import { AngularFireDatabase } from '@angular/fire/database';
 import { fromPromise } from 'rxjs/internal-compatibility';
+import { DataSnapshot } from '@angular/fire/database/interfaces';
 
 @Injectable({
   providedIn: 'root',
 })
 export class SpecialitiesService {
-  private collection: string = 'specialities';
-  constructor(private fireStore: AngularFirestore) {}
+  collection: string = 'specialities';
+  constructor(private fireDB: AngularFireDatabase) {}
 
-  getSpecialities() {
-    return this.fireStore
-      .collection(this.collection)
+  getSpecialities(): Observable<SnapshotData[]> {
+    return this.fireDB
+      .object(this.collection)
       .snapshotChanges()
       .pipe(
-        switchMap((data): Observable<any> => {
-          return of(data.map(snapshotDataConverter()));
-        }),
+        map(({ payload }: { payload: DataSnapshot }) => payload.exportVal()),
+        map(dbConverter),
       );
   }
+
+  // updateName(ref: string): Observable<any> {
+  //   return fromPromise(
+  //     this.fireDB.database
+  //       .ref(`${this.collection}/${ref.replace(/\//g, '/children/')}`)
+  //       .update({ name: 'tset' }),
+  //   );
+  // }
 }

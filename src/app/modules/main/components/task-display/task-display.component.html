@@ -1,0 +1,19 @@
+  <mat-card>
+    <mat-card-header>
+      <mat-card-title>Дата: {{ date | async | moment: 'DD/MM/YYYY' }}</mat-card-title>
+    </mat-card-header>
+    <mat-card-content class="ml-3 mr-3" *ngIf="user.role === 'teacher'">
+      <mat-form-field appearance="outline" class="w-100">
+        <mat-label>Новая задача</mat-label>
+        <textarea matInput [(ngModel)]="textField"></textarea>
+      </mat-form-field>
+      <button mat-raised-button (click)="createNewTask()">Basic</button>
+    </mat-card-content>
+    <mat-card-footer>
+      <mat-list role="list" class="overflow-auto" [ngStyle]="{ 'max-height.px': 140 }">
+        <mat-list-item *ngFor="let task of tasks$ | async" role="listitem">{{
+          task.description
+        }}</mat-list-item>
+      </mat-list>
+    </mat-card-footer>
+  </mat-card>

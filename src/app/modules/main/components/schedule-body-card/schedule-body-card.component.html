@@ -1,0 +1,13 @@
+<div class="hover"
+     (click)="changeDate()">
+  <mat-card class="m-2" [ngClass]="class">
+    <div [matBadgeHidden]="!tasks?.length"
+         matBadgeOverlap="false"
+         [matBadge]="tasks?.length" matBadgeColor="warn">
+      <mat-card-header>{{ day.date | moment: 'DD' }}</mat-card-header>
+      <mat-card-content>
+        <small>{{ day.date | moment: 'dddd' }}</small>
+      </mat-card-content>
+    </div>
+  </mat-card>
+</div>

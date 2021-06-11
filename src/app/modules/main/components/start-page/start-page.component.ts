@@ -3,19 +3,22 @@ import { SpecialitiesService } from '../../../../shared/services/specialities.se
 import { Observable } from 'rxjs';
 import { FlatTreeControl } from '@angular/cdk/tree';
 import { MatTreeFlatDataSource, MatTreeFlattener } from '@angular/material/tree';
+import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
+import { SnapshotData } from '../../../../shared/interfaces/snapshot-data.interface';
 
+@UntilDestroy()
 @Component({
   selector: 'app-start-page',
   templateUrl: './start-page.component.html',
   styleUrls: ['./start-page.component.scss'],
 })
 export class StartPageComponent implements OnInit {
-
   private _transformer = (node: any, level: number) => {
     return {
-      expandable: !!node.children && node.children.length > 0,
-      name: node.name,
+      expandable: !!node?.children && node?.children?.length > 0,
+      name: node?.name,
       level: level,
+      ...node,
     };
   };
 
@@ -24,20 +27,33 @@ export class StartPageComponent implements OnInit {
     (node) => node.expandable,
   );
 
-  treeFlattener = new MatTreeFlattener(
+  private treeFlattener = new MatTreeFlattener(
     this._transformer,
-    (node) => node.level,
-    (node) => node.expandable,
-    (node) => node.children,
+    (node) => node?.level,
+    (node) => node?.expandable,
+    (node) => node?.children,
   );
 
   dataSource = new MatTreeFlatDataSource(this.treeControl, this.treeFlattener);
 
+  hasChild = (_: number, node: any) => node.expandable;
+
   constructor(private specialitiesService: SpecialitiesService) {}
 
   ngOnInit(): void {
-    this.specialitiesService.getSpecialities().subscribe((data) => (this.dataSource.data = data));
+    this.specialitiesService
+      .getSpecialities()
+      .pipe(untilDestroyed(this))
+      .subscribe((data) => {
+        this.dataSource.data = data;
+      });
   }
 
-  hasChild = (_: number, node: any) => node.expandable;
+  click(node: SnapshotData) {
+    console.log(node);
+    // this.specialitiesService
+    //   .updateName(node.id)
+    //   .pipe(untilDestroyed(this))
+    //   .subscribe((data) => console.log(data));
+  }
 }
