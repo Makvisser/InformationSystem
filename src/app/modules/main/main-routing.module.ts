@@ -4,6 +4,7 @@ import { MainComponent } from './main.component';
 import { StartPageComponent } from './components/start-page/start-page.component';
 import { ScheduleComponent } from './components/schedule/schedule.component';
 import { ProfileComponent } from './components/profile/profile.component';
+import { ProjectsComponent } from './components/projects/projects.component';
 
 const routes: Routes = [
   {
@@ -13,6 +14,7 @@ const routes: Routes = [
       { path: '', component: StartPageComponent },
       { path: 'schedule', component: ScheduleComponent },
       { path: 'profile', component: ProfileComponent },
+      { path: 'projects', component: ProjectsComponent },
     ],
   },
 ];
