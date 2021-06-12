@@ -1,0 +1,70 @@
+<mat-card>
+  <mat-card-header class="d-block">
+    <mat-card-title class="mb-3">
+     {{project.title.value}}{{project.title.completed ? '' : ' (Тема еще не подтверждена)'}}
+     </mat-card-title>
+    <mat-card-subtitle>
+      <div class="d-flex justify-content-between">
+        <div>
+          <p>Студенты</p>
+          <p *ngFor="let student of students">
+            {{student.surname}} {{student.name}} {{student.middleName}}
+          </p>
+        </div>
+        <div class="text-align-end">
+          <p>Преподаватель</p>
+          <p>{{teacher?.surname}} {{teacher?.name}} {{teacher?.middleName}}</p>
+          <p>{{teacher?.degree}}</p>
+        </div>
+      </div>
+    </mat-card-subtitle>
+  </mat-card-header>
+  <mat-card-content>
+    <mat-horizontal-stepper [selectedIndex]="selected" [formGroup]="statusForm">
+    <mat-step [stepControl]="getControl('title')"
+              [completed]="stepIsCompleted('title')">
+      <ng-template matStepLabel>Выбор темы</ng-template>
+      <mat-form-field>
+        <mat-label>Тема</mat-label>
+        <input matInput placeholder="Тема" formControlName="title" required>
+      </mat-form-field>
+      <div>
+        <button *ngIf="isEditable" mat-button (click)="approveStep('title')" matStepperNext>Выполнено</button>
+        <button *ngIf="!isEditable && !stepIsCompleted('title')" mat-button (click)="updateValue('title')">Отправить</button>
+      </div>
+    </mat-step>
+    <mat-step [stepControl]="getControl('technologies')">
+      <ng-template matStepLabel>Выбор технологий</ng-template>
+      <mat-form-field>
+        <mat-label>Технологии</mat-label>
+        <input matInput formControlName="technologies" required>
+      </mat-form-field>
+      <div>
+        <button *ngIf="isEditable" mat-button (click)="approveStep('theory')" matStepperNext>Выполнено</button>
+        <button *ngIf="!isEditable && !stepIsCompleted('technologies')" mat-button (click)="updateValue('technologies')">Отправить</button>
+      </div>
+    </mat-step>
+    <mat-step [completed]="stepIsCompleted('practice')">
+      <ng-template matStepLabel>Практическая часть</ng-template>
+      <input type="file">
+      <div>
+        <button *ngIf="isEditable" mat-button (click)="approveStep('theory')" matStepperNext>Выполнено</button>
+        <button *ngIf="!isEditable && !stepIsCompleted('practice')" mat-button (click)="updateValue('practice')">Отправить</button>
+      </div>
+    </mat-step>
+    <mat-step [completed]="stepIsCompleted('theory')">
+      <ng-template matStepLabel>Теоретическая часть</ng-template>
+      <input type="file">
+      <div>
+        <button *ngIf="isEditable" mat-button (click)="approveStep('theory')" matStepperNext>Выполнено</button>
+        <button *ngIf="!isEditable && !stepIsCompleted('theory')" mat-button (click)="updateValue('theory')">Отправить</button>
+      </div>
+    </mat-step>
+    <mat-step [completed]="project.isDone">
+      <ng-template matStepLabel>Готово</ng-template>
+      <button *ngIf="isEditable" mat-button (click)="completeProject()" matStepperNext>Выполнено</button>
+    </mat-step>
+  </mat-horizontal-stepper>
+  </mat-card-content>
+</mat-card>
+

@@ -45,6 +45,8 @@ import { ProjectInfoComponent } from './components/project-info/project-info.com
     TaskDisplayComponent,
     ProfileComponent,
     StartWorkDialogComponent,
+    ProjectsComponent,
+    ProjectInfoComponent,
   ],
   imports: [
     FontAwesomeTestingModule,
