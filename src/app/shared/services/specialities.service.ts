@@ -1,18 +1,20 @@
 import { Injectable } from '@angular/core';
-import { map, tap } from 'rxjs/operators';
+import { map, switchMap, tap } from 'rxjs/operators';
 import { Observable } from 'rxjs';
 import { dbConverter } from '../helpers/data-converters';
 import { SnapshotData } from '../interfaces/snapshot-data.interface';
 import { AngularFireDatabase } from '@angular/fire/database';
 import { fromPromise } from 'rxjs/internal-compatibility';
 import { DataSnapshot } from '@angular/fire/database/interfaces';
+import { AngularFirestore } from '@angular/fire/firestore';
+import { query } from '@angular/animations';
 
 @Injectable({
   providedIn: 'root',
 })
 export class SpecialitiesService {
   collection: string = 'specialities';
-  constructor(private fireDB: AngularFireDatabase) {}
+  constructor(private fireDB: AngularFireDatabase,) {}
 
   getSpecialities(): Observable<SnapshotData[]> {
     return this.fireDB

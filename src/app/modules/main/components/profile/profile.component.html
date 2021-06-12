@@ -1,8 +1,32 @@
-<pre class="h1" *ngIf="user.role === 'student'; else teacher">
-  {{user | json}}
-</pre>
-<ng-template #teacher>
-  <pre class="h1">
-    {{user | json}}
-  </pre>
-</ng-template>
+<div class="d-flex p-3 flex-column w-50">
+  <h1>Профиль</h1>
+  <p class="font-weight-bold">{{ user.surname }} {{ user.name }} {{ user.middleName }}</p>
+  <div class="d-flex justify-content-center pb-4">
+    <img
+      *ngIf="!!(photo$ | async); else spinner"
+      [src]="photo$ | async"
+      alt="profile photo"
+      height="200px"
+      width="200px"
+    />
+    <ng-template #spinner>
+      <div class="spinner-border" role="status">
+        <span class="sr-only">Loading...</span>
+      </div>
+    </ng-template>
+  </div>
+  <div *ngIf="user.role === 'student'; else teacher">
+    <p class="font-weight-bold">Курс</p>
+    <div class="pb-4">{{ user.course }}</div>
+    <p class="font-weight-bold">Cпециальность</p>
+    <div class="pb-4">{{ user.speciality }}</div>
+  </div>
+  <ng-template #teacher>
+    <p class="font-weight-bold">Кафедра</p>
+    <div class="pb-4">{{ user.department.name }}</div>
+    <p class="font-weight-bold">Степень</p>
+    <div class="pb-4">{{ user.degree }}</div>
+  </ng-template>
+  <p class="font-weight-bold">Email</p>
+  <div class="pb-4">{{ user.email }}</div>
+</div>

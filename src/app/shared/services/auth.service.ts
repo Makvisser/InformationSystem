@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { AngularFirestore, DocumentChangeAction } from '@angular/fire/firestore';
 import { UserMetadata } from '../interfaces/userMetadata';
-import { BehaviorSubject, Observable, of, throwError } from 'rxjs';
+import { BehaviorSubject, iif, Observable, of, throwError } from 'rxjs';
 import { map, switchMap, tap } from 'rxjs/operators';
 import { Router } from '@angular/router';
 import { StudentInfo } from '../interfaces/student-info';
@@ -43,16 +43,48 @@ export class AuthService {
                 .get()
                 .then((querySnapshot) => {
                   const [user] = querySnapshot.docs;
+                  const { password, ...data } = foundUser;
                   return {
-                    id: user.id,
                     ...(user.data() as any),
-                    role: foundUser.role,
-                    login: foundUser.login,
+                    ...data,
+                    id: user.id,
                   } as StudentInfo | TeacherInfo;
                 }),
+            ).pipe(
+              switchMap((data) =>
+                data.role === 'teacher'
+                  ? this.getDepartmentById(data.departmentId).pipe(
+                      map((val) => ({ ...data, department: val })),
+                    )
+                  : of(data),
+              ),
             );
       }),
     );
+  }
+
+  getDepartmentById(departmentId) {
+    return this.firestore
+      .collection('departments')
+      .doc(departmentId)
+      .snapshotChanges()
+      .pipe(map(({ payload }) => ({ id: payload.id, ...(payload.data() as any) })));
+  }
+
+  getUserByRoleAndId(
+    id: string,
+    role: 'teacher' | 'student',
+  ): Observable<StudentInfo | TeacherInfo> {
+    return this.firestore
+      .collection(`${role}s`)
+      .doc(id)
+      .snapshotChanges()
+      .pipe(
+        map(({ payload }) => ({
+          id: payload.id,
+          ...(payload.data() as TeacherInfo | StudentInfo),
+        })),
+      );
   }
 
   setUser(user: StudentInfo | TeacherInfo): void {
@@ -63,7 +95,7 @@ export class AuthService {
 
   signOut(): void {
     localStorage.removeItem('user');
-    this.currentUser.next(null);
     this.router.navigateByUrl('/auth').then();
+    this.currentUser.next(null);
   }
 }

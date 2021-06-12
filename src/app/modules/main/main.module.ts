@@ -21,10 +21,15 @@ import { MatCardModule } from '@angular/material/card';
 import { TaskDisplayComponent } from './components/task-display/task-display.component';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatBadgeModule } from '@angular/material/badge';
 import { ProfileComponent } from './components/profile/profile.component';
+import { StartWorkDialogComponent } from './components/start-work-dialog/start-work-dialog.component';
+import { MatDialogModule } from '@angular/material/dialog';
+import { ProjectsComponent } from './components/projects/projects.component';
+import { MatStepperModule } from '@angular/material/stepper';
+import { ProjectInfoComponent } from './components/project-info/project-info.component';
 
 @NgModule({
   declarations: [
@@ -39,6 +44,7 @@ import { ProfileComponent } from './components/profile/profile.component';
     ScheduleComponent,
     TaskDisplayComponent,
     ProfileComponent,
+    StartWorkDialogComponent,
   ],
   imports: [
     FontAwesomeTestingModule,
@@ -56,6 +62,9 @@ import { ProfileComponent } from './components/profile/profile.component';
     MatToolbarModule,
     FormsModule,
     MatBadgeModule,
+    MatDialogModule,
+    ReactiveFormsModule,
+    MatStepperModule,
   ],
 })
 export class MainModule {

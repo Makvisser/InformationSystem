@@ -1,5 +1,5 @@
 <mat-selection-list [multiple]="false" class="p-3" (selectionChange)="goTo($event)">
   <mat-list-option *ngFor="let option of menuOptions" [value]="option.link">
-    {{option.title}}
+    <p style="width: 15rem">{{option.title}}</p>
   </mat-list-option>
 </mat-selection-list>
