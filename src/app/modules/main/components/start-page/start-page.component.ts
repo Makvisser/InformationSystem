@@ -5,6 +5,10 @@ import { FlatTreeControl } from '@angular/cdk/tree';
 import { MatTreeFlatDataSource, MatTreeFlattener } from '@angular/material/tree';
 import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
 import { SnapshotData } from '../../../../shared/interfaces/snapshot-data.interface';
+import { MatDialog } from '@angular/material/dialog';
+import { StartWorkDialogComponent } from '../start-work-dialog/start-work-dialog.component';
+import { AuthService } from '../../../../shared/services/auth.service';
+import { Router } from '@angular/router';
 
 @UntilDestroy()
 @Component({
@@ -38,22 +42,31 @@ export class StartPageComponent implements OnInit {
 
   hasChild = (_: number, node: any) => node.expandable;
 
-  constructor(private specialitiesService: SpecialitiesService) {}
+  constructor(
+    private specialitiesService: SpecialitiesService,
+    private dialog: MatDialog,
+    private authService: AuthService,
+    private router: Router,
+  ) {}
 
   ngOnInit(): void {
-    this.specialitiesService
-      .getSpecialities()
-      .pipe(untilDestroyed(this))
-      .subscribe((data) => {
-        this.dataSource.data = data;
-      });
+    const { role } = this.authService.currentUser.value;
+    if (role === 'teacher') {
+      this.router.navigate(['main', 'schedule']).then();
+    } else {
+      this.specialitiesService
+        .getSpecialities()
+        .pipe(untilDestroyed(this))
+        .subscribe((data) => {
+          this.dataSource.data = data;
+        });
+    }
   }
 
   click(node: SnapshotData) {
-    console.log(node);
-    // this.specialitiesService
-    //   .updateName(node.id)
-    //   .pipe(untilDestroyed(this))
-    //   .subscribe((data) => console.log(data));
+    const dialogRef = this.dialog.open(StartWorkDialogComponent, {
+      width: '500px',
+    });
+    dialogRef.componentInstance.node = node;
   }
 }

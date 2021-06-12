@@ -11,6 +11,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { AuthGuard } from './shared/guards/auth.guard';
 import { AngularFireDatabaseModule } from '@angular/fire/database';
 import { MomentPipe } from './shared/pipes/moment.pipe';
+import { AngularFireStorageModule } from '@angular/fire/storage';
 
 @NgModule({
   declarations: [AppComponent],
@@ -27,6 +28,7 @@ import { MomentPipe } from './shared/pipes/moment.pipe';
     }),
     AngularFirestoreModule,
     AngularFireDatabaseModule,
+    AngularFireStorageModule,
     FormsModule,
     ReactiveFormsModule,
     BrowserModule,

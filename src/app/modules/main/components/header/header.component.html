@@ -1,4 +1,7 @@
 <mat-toolbar class="w-100 d-flex justify-content-between">
-  <span (click)="goToMain()">My App</span>
-  <button mat-button (click)="signOut()">{{currentUser?.name}} Sign out</button>
+  <div (click)="goToMain()">
+    <p class="h4 m-0">Витебский государственный университет имени П.М.Машерова</p>
+    <p class="h6 m-0">Система управления курсовыми и дипломными работами</p>
+  </div>
+  <button mat-button (click)="signOut()">{{currentUser?.name}} Выйти</button>
 </mat-toolbar>
