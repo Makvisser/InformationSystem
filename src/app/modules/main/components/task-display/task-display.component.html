@@ -10,7 +10,7 @@
       <button mat-raised-button (click)="createNewTask()">Basic</button>
     </mat-card-content>
     <mat-card-footer>
-      <mat-list role="list" class="overflow-auto" [ngStyle]="{ 'max-height.px': 140 }">
+      <mat-list role="list" class="overflow-auto">
         <mat-list-item *ngFor="let task of tasks$ | async" role="listitem">{{
           task.description
         }}</mat-list-item>
