@@ -30,6 +30,9 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { ProjectsComponent } from './components/projects/projects.component';
 import { MatStepperModule } from '@angular/material/stepper';
 import { ProjectInfoComponent } from './components/project-info/project-info.component';
+import { MessagesComponent } from './components/messages/messages.component';
+import { ChatComponent } from './components/chat/chat.component';
+import { ChatPreviewComponent } from './components/chat-preview/chat-preview.component';
 
 @NgModule({
   declarations: [
@@ -47,6 +50,9 @@ import { ProjectInfoComponent } from './components/project-info/project-info.com
     StartWorkDialogComponent,
     ProjectsComponent,
     ProjectInfoComponent,
+    MessagesComponent,
+    ChatComponent,
+    ChatPreviewComponent,
   ],
   imports: [
     FontAwesomeTestingModule,

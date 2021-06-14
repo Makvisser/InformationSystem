@@ -6,4 +6,5 @@ export interface StudentInfo extends UserMetadata {
   middleName: string;
   course: string;
   speciality: string;
+  userId: string;
 }

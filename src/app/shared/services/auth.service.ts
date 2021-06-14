@@ -87,6 +87,30 @@ export class AuthService {
       );
   }
 
+  getKnownUserByRoleAndId(id: string, role: 'student' | 'teacher') {
+    return this.firestore
+      .collection(`${role}s`)
+      .ref.where('userId', '==', id)
+      .get()
+      .then((querySnapshot) => {
+        const [user] = querySnapshot.docs;
+        return {
+          ...(user.data() as any),
+          id: user.id,
+        } as StudentInfo | TeacherInfo;
+      });
+  }
+
+  getUserById(id: string): Observable<UserMetadata> {
+    return this.firestore
+      .collection('users')
+      .doc(id)
+      .snapshotChanges()
+      .pipe(
+        map(({ payload }) => ({ id: payload.id, ...(payload.data() as any) })),
+      ) as Observable<UserMetadata>;
+  }
+
   setUser(user: StudentInfo | TeacherInfo): void {
     localStorage.setItem('user', JSON.stringify(user));
     this.currentUser.next(user);
