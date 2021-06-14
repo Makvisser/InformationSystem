@@ -1,1 +1,31 @@
-<p>chat works!</p>
+<div
+  class="pl-3 pr-3 pt-1 h-100 w-100 position-relative d-flex flex-column justify-content-between"
+>
+  <div class="d-flex flex-column messages h-100 overflow-auto" #element>
+    <div
+      class="d-flex w-100 message"
+      [ngStyle]="{ 'justify-content': message.userId === user.userId ? 'flex-end' : 'flex-start' }"
+      *ngFor="let message of chat?.messages"
+    >
+      <div class="fit-width">
+        <mat-card class="mt-2 mb-2">
+          <small class="darkgrey">{{covertToMoment(message.date.toDate()) | moment:'HH:mm'}}</small>
+          <mat-card-content>
+            {{ message.value }}
+          </mat-card-content>
+        </mat-card>
+      </div>
+    </div>
+  </div>
+  <form class="text-zone d-flex align-items-center pt-3" [formGroup]="form" (ngSubmit)="newMessage()">
+    <div class="field">
+      <mat-form-field class="w-100 pr-2 pl-2 h-100">
+        <mat-label>Сообщение</mat-label>
+        <input matInput formControlName="value"/>
+      </mat-form-field>
+    </div>
+    <div class="send">
+      <button mat-raised-button type="submit">Отправить</button>
+    </div>
+  </form>
+</div>

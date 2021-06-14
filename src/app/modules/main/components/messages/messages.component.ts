@@ -10,7 +10,9 @@ import { map, switchMap, tap } from 'rxjs/operators';
 import { UserMetadata } from '../../../../shared/interfaces/userMetadata';
 import { Router } from '@angular/router';
 import { MatSelectionListChange } from '@angular/material/list';
+import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
 
+@UntilDestroy()
 @Component({
   selector: 'app-messages',
   templateUrl: './messages.component.html',
@@ -26,9 +28,10 @@ export class MessagesComponent implements OnInit {
 
   messages$: Observable<Chat[]>;
   ngOnInit(): void {
-    this.messages$ = this.messagesService
-      .getMessagesByUserId(this.user.userId)
-      .pipe(tap((data) => console.log(data)));
+    this.messages$ = this.messagesService.getMessagesByUserId(this.user.userId).pipe(
+      tap((data) => console.log(data)),
+      untilDestroyed(this),
+    );
   }
 
   get user(): StudentInfo | TeacherInfo {
@@ -36,6 +39,6 @@ export class MessagesComponent implements OnInit {
   }
 
   openChat(event: MatSelectionListChange): void {
-    this.router.navigateByUrl(`${this.router.url}/${event.options[0].value}`).then();
+    this.router.navigate(['main', 'messages', event.options[0].value]).then();
   }
 }

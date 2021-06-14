@@ -1,12 +1,12 @@
-<mat-drawer-container class="d-flex w-100 h-100">
-  <mat-drawer mode="side" opened>
+<div class="d-flex h-100 messages">
+  <div class="menu">
     <mat-selection-list [multiple]="false" (selectionChange)="openChat($event)">
       <mat-list-option *ngFor="let chat of (messages$ | async)" [value]="chat.id">
         <app-chat-preview [users]="chat.users"></app-chat-preview>
       </mat-list-option>
     </mat-selection-list>
-  </mat-drawer>
-  <mat-drawer-content class="w-100 p-2">
+  </div>
+  <div class="chat">
     <router-outlet></router-outlet>
-  </mat-drawer-content>
-</mat-drawer-container>
+  </div>
+</div>

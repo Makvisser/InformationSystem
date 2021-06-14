@@ -33,6 +33,7 @@ import { ProjectInfoComponent } from './components/project-info/project-info.com
 import { MessagesComponent } from './components/messages/messages.component';
 import { ChatComponent } from './components/chat/chat.component';
 import { ChatPreviewComponent } from './components/chat-preview/chat-preview.component';
+import { MatDividerModule } from '@angular/material/divider';
 
 @NgModule({
   declarations: [
